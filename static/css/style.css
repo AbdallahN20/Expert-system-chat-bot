@@ -1,0 +1,325 @@
+/* إعدادات عامة */
+* { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+body { font-family: 'Cairo', sans-serif; background-color: #0f0c29; color: white; overflow-x: hidden; }
+
+/* =========================================
+   1. Liquid Background Animation (الخلفية السائلة)
+   ========================================= */
+.liquid-bg {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; overflow: hidden; background: #0f0c29;
+}
+
+.blob {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); opacity: 0.6;
+    animation: float 10s infinite alternate;
+}
+
+.blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #302b63; animation-delay: 0s; }
+.blob-2 { bottom: -10%; right: -10%; width: 600px; height: 600px; background: #24243e; animation-delay: 2s; }
+.blob-3 { top: 40%; left: 40%; width: 400px; height: 400px; background: #6a3093; animation-delay: 4s; }
+
+@keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, 50px) scale(1.1); }
+}
+
+/* =========================================
+   2. Glassmorphism Utility (تأثير الزجاج)
+   ========================================= */
+.glass-card, .glass-nav, .glass-footer {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border-radius: 15px;
+}
+
+/* =========================================
+   3. Navbar & Sections
+   ========================================= */
+.glass-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 50px; position: fixed; top: 20px; left: 50%;
+    transform: translateX(-50%); width: 90%; z-index: 1000;
+    transition: 0.3s ease; /* إضافة نعومة عند تغيير الحجم */
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 10px #a29bfe;
+}
+
+.logo-mark {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.logo-mark i {
+    color: #a29bfe;
+    font-size: 18px;
+}
+.nav-links { list-style: none; display: flex; gap: 20px; }
+.nav-links a { text-decoration: none; color: white; font-weight: bold; transition: 0.3s; }
+.nav-links a:hover { color: #a29bfe; }
+
+.section-padding { padding: 80px 10%; text-align: center; }
+.section-title { font-size: 32px; margin-bottom: 40px; color: #a29bfe; }
+
+/* Hero Section */
+.hero-section { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+.hero-content { padding: 40px; max-width: 700px; }
+.hero-content h1 { font-size: 48px; margin-bottom: 20px; }
+.cta-btn {
+    background: linear-gradient(45deg, #6a3093, #a29bfe); color: white;
+    border: none; padding: 12px 30px; font-size: 18px; border-radius: 30px;
+    cursor: pointer; margin-top: 20px; transition: transform 0.3s;
+}
+.cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(162, 155, 254, 0.5); }
+
+/* Services Grid */
+.cards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+.service-card { padding: 30px; transition: 0.3s; text-align: center; }
+.service-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.1); }
+.service-card .icon { font-size: 40px; margin-bottom: 15px; color: #a29bfe; }
+.service-card .price { display: block; margin-top: 15px; color: #00d2d3; font-weight: bold; }
+
+/* Portfolio Grid */
+.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.portfolio-item { position: relative; overflow: hidden; height: 200px; }
+.portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.portfolio-item:hover img { transform: scale(1.1); }
+.portfolio-item .overlay {
+    position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px;
+    background: rgba(0,0,0,0.7); text-align: center; font-weight: bold;
+}
+
+/* Footer */
+.glass-footer { padding: 20px; text-align: center; margin: 20px; margin-bottom: 0; }
+.socials i { margin: 0 10px; font-size: 20px; cursor: pointer; transition: 0.3s; }
+.socials i:hover { color: #a29bfe; }
+
+/* =========================================
+   4. Chatbot Styling (Floating)
+   ========================================= */
+.chat-toggle-btn {
+    position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+    background: linear-gradient(45deg, #6a3093, #a29bfe); color: white;
+    border: none; border-radius: 50%; font-size: 24px; cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,210,211,0.4); z-index: 2000;
+    transition: 0.3s; animation: bounce 2s infinite;
+}
+@keyframes bounce { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-10px);} }
+
+.chat-wrapper {
+    display: none; position: fixed; bottom: 100px; right: 30px; width: 350px; height: 500px;
+    background: rgba(15, 12, 41, 0.95); backdrop-filter: blur(20px);
+    border-radius: 18px; border: 1px solid rgba(255,255,255,0.12);
+    flex-direction: column; overflow: hidden; z-index: 2000;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.chat-header {
+    background: linear-gradient(90deg, #6a3093, #00d2d3);
+    padding: 14px 14px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.chat-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-title i {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.close-chat {
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.10);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.close-chat:hover { background: rgba(255, 255, 255, 0.16); }
+
+.chat-body { flex: 1; padding: 15px; overflow-y: auto; scrollbar-width: thin; }
+.message-row { display: flex; margin-bottom: 10px; }
+.user-row { justify-content: flex-end; }
+.bot-row { justify-content: flex-start; }
+.message { padding: 10px 15px; border-radius: 15px; max-width: 80%; font-size: 14px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+.user-msg { background: #00d2d3; color: #000; border-bottom-left-radius: 15px; }
+.bot-msg { background: rgba(255,255,255,0.1); color: #fff; border-bottom-right-radius: 15px; }
+.chat-image { width: 100%; border-radius: 10px; margin-top: 5px; }
+.chat-footer { padding: 14px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; }
+.chat-footer input { flex: 1; padding: 10px; border-radius: 20px; border: none; outline: none; margin-left: 10px; background: rgba(255,255,255,0.1); color: white; }
+.chat-footer input:focus { box-shadow: 0 0 0 2px rgba(162, 155, 254, 0.35); }
+
+.chat-footer button {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: linear-gradient(45deg, #00d2d3, #2e86de);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.chat-footer button:hover { transform: translateY(-1px); }
+
+/* =========================================
+   5. Mobile Responsive Fixes (تعديلات الموبايل)
+   ========================================= */
+@media screen and (max-width: 768px) {
+
+    /* إصلاح الناف بار: العناصر تحت بعض بدل ما تكون متكدسة */
+    .glass-nav {
+        flex-direction: column;
+        padding: 15px;
+        width: 95%; /* توسيع الناف بار */
+        top: 10px;
+    }
+
+    .logo {
+        margin-bottom: 15px;
+        font-size: 20px;
+    }
+
+    /* ترتيب اللينكات بشكل منظم */
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 0;
+    }
+
+    .nav-links li {
+        margin: 0;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+        padding: 8px 12px;
+        background: rgba(255,255,255,0.1); /* زرار خفيف */
+        border-radius: 8px;
+        display: block;
+    }
+
+    /* تصغير الخطوط الكبيرة في الشاشة الرئيسية */
+    .hero-content h1 {
+        font-size: 28px;
+        line-height: 1.4;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+        padding: 0 10px;
+    }
+
+    /* إجبار الكروت تكون كارت واحد في الصف */
+    .cards-container {
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* تقليل الهوامش */
+    .section-padding {
+        padding: 60px 5%;
+    }
+
+    /* تعديل مكان وحجم الشات بوت */
+    .chat-wrapper {
+        width: 92%;
+        height: 60vh;
+        right: 4%;
+        bottom: 85px;
+    }
+}
+
+/* =========================================
+   ✈️ زرار تيليجرام العائم
+   ========================================= */
+.telegram-btn {
+    position: fixed;
+    bottom: 100px; /* مرفوع عن زرار الشات بمسافة */
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #0088cc, #005f8f); /* لون تيليجرام */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    text-decoration: none; /* عشان نشيل الخط من تحت اللينك */
+    box-shadow: 0 5px 15px rgba(0, 136, 204, 0.5);
+    z-index: 2000;
+    transition: 0.3s;
+    animation: bounce 2s infinite;
+    animation-delay: 1s; /* عشان ينط عكس التاني */
+}
+
+.telegram-btn:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 0 25px rgba(0, 136, 204, 0.8);
+    color: white;
+}
+
+/* تعديل للموبايل عشان الزرارين مايدخلوش في بعض */
+@media screen and (max-width: 768px) {
+    .telegram-btn {
+        width: 50px;
+        height: 50px;
+        bottom: 80px; /* مسافة مناسبة للموبايل */
+        right: 20px;
+        font-size: 24px;
+    }
+
+    /* نرفع الشات بوكس شوية عشان م يغطيش ع الزرار */
+    .chat-wrapper {
+        bottom: 140px;
+    }
+}
