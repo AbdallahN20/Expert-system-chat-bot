@@ -9,74 +9,38 @@ from flask import Flask, render_template, request, jsonify, send_from_directory
 
 app = Flask(__name__)
 
-# ===========================
-# إعدادات تيليجرام (اختياري)
-# ===========================
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN", "").strip()
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/" if TELEGRAM_TOKEN else ""
-MY_WEBSITE_URL = os.getenv("MY_WEBSITE_URL", "").strip()  # مثال: https://your-site.com
+MY_WEBSITE_URL = os.getenv("MY_WEBSITE_URL", "").strip()
 
-# ===========================
-# المنطق (Logic) والذاكرة
-# ===========================
 user_context = {}
-
-
-# ===========================
-# معالجة اللغة / المطابقة
-# ===========================
 
 _AR_DIACRITICS_RE = re.compile(r"[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]")
 _PUNCT_RE = re.compile(r"[^\w\s\u0600-\u06FF-]")
 
 _STOPWORDS_AR = {
-    "في",
-    "من",
-    "على",
-    "الى",
-    "إلى",
-    "عن",
-    "مع",
-    "هو",
-    "هي",
-    "انا",
-    "أنا",
-    "انت",
-    "أنت",
-    "انتي",
-    "إنتي",
-    "احنا",
-    "نحن",
-    "ده",
-    "دي",
-    "دا",
-    "دول",
-    "ايه",
-    "إيه",
-    "يعني",
-    "ممكن",
-    "لو",
-    "please",
-    "pls",
+    "في", "من", "على", "الى", "إلى", "عن", "مع", "هو", "هي", "انا", "أنا", "انت", "أنت",
+    "انتي", "إنتي", "احنا", "نحن", "ده", "دي", "دا", "دول", "ايه", "إيه", "يعني", "ممكن", "لو",
+    "please", "pls",
 }
 
 _STOPWORDS_EN = {
-    "the",
-    "a",
-    "an",
-    "is",
-    "are",
-    "was",
-    "were",
-    "what",
-    "why",
-    "how",
-    "tell",
-    "me",
-    "about",
-    "please",
+    "the", "a", "an", "is", "are", "was", "were", "what", "why", "how", "tell", "me", "about", "please",
 }
 
+_TONE_PREFIXES = [
+    "تمام، خلّينا نفهمها سوا:",
+    "بص يا صاحبي:",
+    "حلو، ركّز معايا:",
+    "ماشي، تعال نقولها ببساطة:",
+    "طيب، خلّيني أرتّبهالك:",
+]
+
+_TONE_SUFFIXES = [
+    "تحب مثال سريع؟",
+    "لو عايزها مختصر اكتب (مختصر)، ولو بالتفصيل اكتب (بالتفصيل).",
+    "لو في نقطة مش واضحة قولي وأنا أوضحها.",
+]
 
 def _normalize_arabic(text: str) -> str:
     text = _AR_DIACRITICS_RE.sub("", text)
@@ -86,14 +50,12 @@ def _normalize_arabic(text: str) -> str:
     text = text.replace("ـ", "")
     return text
 
-
 def normalize_text(text: str) -> str:
     text = (text or "").strip().lower()
     text = _normalize_arabic(text)
     text = _PUNCT_RE.sub(" ", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
-
 
 def tokenize(text: str) -> List[str]:
     norm = normalize_text(text)
@@ -107,12 +69,62 @@ def tokenize(text: str) -> List[str]:
         if len(t) <= 1:
             continue
         filtered.append(t)
+
+        if t.startswith("ال") and len(t) > 3:
+            stripped = t[2:]
+            if len(stripped) >= 3 and stripped not in _STOPWORDS_AR and stripped not in _STOPWORDS_EN:
+                filtered.append(stripped)
     return filtered
 
 
+def stylize_response(text: str, intent_tag: Optional[str], norm_input: str) -> str:
+    text = (text or "").strip()
+    if not text:
+        return text
+
+    starter_tokens = (
+        "بص",
+        "تمام",
+        "حلو",
+        "ماشي",
+        "طيب",
+        "أهلاً",
+        "اهلاً",
+        "يا أهلاً",
+        "يا اهلاً",
+        "يا هلا",
+        "إزيك",
+        "ازيك",
+        "صباح",
+        "مساء",
+        "العفو",
+        "باي",
+        "مع السلامة",
+    )
+
+    prefix = ""
+    if not text.startswith(starter_tokens):
+        prefix = random.choice(_TONE_PREFIXES)
+
+    add_suffix = True
+    if wants_short_answer(norm_input):
+        add_suffix = False
+    else:
+        add_suffix = random.random() < 0.55
+
+    suffix = random.choice(_TONE_SUFFIXES) if add_suffix else ""
+
+    parts = []
+    if prefix:
+        parts.append(prefix)
+    parts.append(text)
+    if suffix:
+        parts.append(suffix)
+
+    return "\n\n".join(parts).strip()
+
 def wants_short_answer(norm_input: str) -> bool:
     return any(k in norm_input for k in ["مختصر", "تلخيص", "الخلاصه", "باختصار", "summary", "short"])
-
 
 def wants_long_answer(norm_input: str) -> bool:
     return any(
@@ -124,28 +136,27 @@ def wants_long_answer(norm_input: str) -> bool:
             "اشرح",
             "اشرحلي",
             "اشرح لى",
+            "وضح",
+            "وضحلي",
+            "وضح لى",
+            "فسر",
+            "فسرلي",
+            "فسر لى",
+            "فهمني",
+            "فهمنى",
+            "عرفها",
             "explain",
             "more details",
             "expand",
         ]
     )
 
-
 def is_reasoning_request(norm_input: str) -> bool:
-    # طلب يخص (تفسير البوت لنفسه) مش تفسير المفهوم.
     cues = [
-        "عرفت ازاي",
-        "فهمت ازاي",
-        "ازاي استنتجت",
-        "إزاي استنتجت",
-        "بناء على ايه",
-        "ليه بتقول",
-        "ليه قولت",
-        "why did you",
-        "explain your reasoning",
+        "عرفت ازاي", "فهمت ازاي", "ازاي استنتجت", "إزاي استنتجت", "بناء على ايه", "ليه بتقول", "ليه قولت",
+        "why did you", "explain your reasoning",
     ]
     return any(cue in norm_input for cue in cues)
-
 
 def _intent_phrases(intent: Dict[str, Any]) -> List[str]:
     phrases: List[str] = []
@@ -158,7 +169,6 @@ def _intent_phrases(intent: Dict[str, Any]) -> List[str]:
     if tag:
         phrases.append(str(tag).replace("_", " "))
     return phrases
-
 
 def score_intent(
     intent: Dict[str, Any],
@@ -174,20 +184,17 @@ def score_intent(
         if not norm_phrase:
             continue
 
-        # 1) تطابق عبارة كاملة داخل السؤال
         if len(norm_phrase) >= 3 and norm_phrase in norm_input:
             score += 4.0 + (0.25 * len(norm_phrase.split(" ")))
             matched.append(str(phrase))
             continue
 
-        # 2) تقاطع كلمات
         phrase_tokens = set(tokenize(norm_phrase))
         overlap = phrase_tokens & token_set
         if overlap:
             score += 1.2 * (len(overlap) / max(1, len(phrase_tokens)))
             matched.extend(sorted(overlap))
 
-    # تنظيف بسيط للتكرار
     unique_matched = []
     seen = set()
     for m in matched:
@@ -197,7 +204,6 @@ def score_intent(
         unique_matched.append(m)
 
     return score, unique_matched
-
 
 def find_best_intent(
     norm_input: str,
@@ -218,7 +224,6 @@ def find_best_intent(
     best_intent, best_score, best_matched = scored[0]
     return best_intent, float(best_score), best_matched, top_debug
 
-
 def pick_intent_response(intent: Dict[str, Any], norm_input: str) -> str:
     short = wants_short_answer(norm_input)
     long = wants_long_answer(norm_input)
@@ -229,39 +234,13 @@ def pick_intent_response(intent: Dict[str, Any], norm_input: str) -> str:
         return random.choice(intent["responses_long"])
     return random.choice(intent.get("responses", ["..."]))
 
-
-def _format_suggestions(knowledge: Dict[str, Any], top_debug: List[Tuple[str, float]]) -> str:
-    tag_to_intent = {i.get("tag"): i for i in knowledge.get("intents", [])}
-    suggestions: List[str] = []
-    for tag, s in top_debug:
-        if not tag or s <= 0:
-            continue
-        if tag == "fallback":
-            continue
-        intent = tag_to_intent.get(tag)
-        if not intent:
-            continue
-        title = intent.get("title") or tag
-        suggestions.append(f"- {title}")
-        if len(suggestions) >= 4:
-            break
-    if not suggestions:
-        return ""
-    return "\n\nممكن تقصد واحد من دول؟\n" + "\n".join(suggestions)
-
 def load_knowledge_base():
-    # 1. بنجيب مسار المجلد اللي فيه ملف app.py الحالي
     base_path = os.path.dirname(os.path.abspath(__file__))
-
-    # 2. بنلزق فيه اسم ملف الجيسون عشان يبقى مسار كامل
     file_path = os.path.join(base_path, 'knowledge.json')
-
-    # 3. بنفتح الملف بالمسار الكامل
     with open(file_path, 'r', encoding='utf-8') as file:
         return json.load(file)
 
 knowledge_base = load_knowledge_base()
-
 
 def get_intent_by_tag(tag: str) -> Optional[Dict[str, Any]]:
     for intent in knowledge_base.get("intents", []):
@@ -269,46 +248,68 @@ def get_intent_by_tag(tag: str) -> Optional[Dict[str, Any]]:
             return intent
     return None
 
+
+def _format_suggestions(knowledge: Dict[str, Any], top_debug: List[Tuple[str, float]]) -> str:
+    if not top_debug:
+        return "\n\nلو تحب، اكتب (مواضيع) علشان تشوف المحاور."
+
+    tag_to_title: Dict[str, str] = {}
+    for intent in knowledge.get("intents", []):
+        tag = str(intent.get("tag") or "").strip()
+        if not tag:
+            continue
+        tag_to_title[tag] = str(intent.get("title") or tag)
+
+    suggestions: List[str] = []
+    for tag, _score in top_debug:
+        title = tag_to_title.get(tag)
+        if not title:
+            continue
+        if title in suggestions:
+            continue
+        suggestions.append(title)
+
+    if not suggestions:
+        return "\n\nلو تحب، اكتب (مواضيع) علشان تشوف المحاور."
+
+    top = suggestions[:3]
+    joined = "، ".join(top)
+    return f"\n\nغالباً تقصد: {joined}\nلو تحب القائمة كلها اكتب (مواضيع)."
+
 def get_bot_response(user_input, user_id="web"):
     global user_context
 
     raw_input = (user_input or "").strip()
     if not raw_input:
-        return {"text": "اكتب سؤالك، وأنا معاك.", "image": None}
+        return {"text": "اكتب سؤالك بس، وأنا معاك.", "image": None}
 
     norm_input = normalize_text(raw_input)
     input_tokens = tokenize(norm_input)
 
-    # استخدام user_id عشان نفصل ذاكرة كل مستخدم عن التاني (مهم للتيليجرام)
     if user_id not in user_context:
         user_context[user_id] = {}
 
-    # 1) أوامر إدارة المحادثة (Reset)
     if any(p in norm_input for p in ["reset", "امسح", "ابدأ من جديد", "ابدأ من الاول", "new chat"]):
         user_context[user_id] = {}
         reset_intent = get_intent_by_tag("reset")
         if reset_intent:
-            return {"text": pick_intent_response(reset_intent, norm_input), "image": None}
-        return {"text": "تمام — بدأنا من جديد. اكتب (مواضيع) علشان تشوف المحاور.", "image": None}
+            base = pick_intent_response(reset_intent, norm_input)
+            return {"text": stylize_response(base, reset_intent.get("tag"), norm_input), "image": None}
+        return {"text": stylize_response("تمام — بدأنا من جديد. اكتب (مواضيع) علشان تشوف المحاور.", "reset", norm_input), "image": None}
 
-    # 2) طلب تفسير البوت لسبب اختياره
     if is_reasoning_request(norm_input):
         last = user_context[user_id].get("last_reasoning")
         if not last:
-            return {"text": "لسه ماعنديش نتيجة سابقة أشرحها. اسألني سؤال في النظم الخبيرة الأول.", "image": None}
+            return {"text": stylize_response("لسه ماعنديش نتيجة سابقة أشرحها. اسألني سؤال في النظم الخبيرة الأول.", "reasoning", norm_input), "image": None}
 
         last_title = last.get("intent_title") or last.get("intent_tag")
         matched = last.get("matched") or []
         matched_str = ", ".join(matched[:10]) if matched else "(مافيش كلمات واضحة)"
-        return {
-            "text": f"رجّحت إن سؤالك عن: {last_title}\n\nالسبب: لقيت كلمات/عبارات مرتبطة بالموضوع داخل سؤالك زي: {matched_str}\n\nلو ده مش قصدك، اكتب (مواضيع) واختار محور.",
-            "image": None,
-        }
+        base = f"رجّحت إن سؤالك عن: {last_title}\n\nالسبب: لقيت كلمات/عبارات مرتبطة بالموضوع داخل سؤالك زي: {matched_str}\n\nلو ده مش قصدك، اكتب (مواضيع) واختار محور."
+        return {"text": stylize_response(base, "reasoning", norm_input), "image": None}
 
-    # 3) استنتاج أفضل Intent
     found_intent, best_score, matched_terms, top_debug = find_best_intent(norm_input, input_tokens, knowledge_base)
 
-    # 4) دعم المتابعة: (اشرح اكتر/مختصر) اعتمادًا على آخر موضوع
     if (not found_intent or best_score < 1.4) and user_context[user_id].get("last_intent_tag"):
         last_tag = user_context[user_id].get("last_intent_tag")
         last_intent = get_intent_by_tag(last_tag)
@@ -320,9 +321,8 @@ def get_bot_response(user_input, user_id="web"):
                 "matched": ["متابعة"] + (matched_terms or []),
                 "score": best_score,
             }
-            return {"text": text, "image": None}
+            return {"text": stylize_response(text, last_intent.get("tag"), norm_input), "image": None}
 
-    # 5) رد طبيعي
     MIN_SCORE = 1.4
     if found_intent and best_score >= MIN_SCORE:
         response_text = pick_intent_response(found_intent, norm_input)
@@ -333,24 +333,22 @@ def get_bot_response(user_input, user_id="web"):
             "matched": matched_terms,
             "score": best_score,
         }
-        return {"text": response_text, "image": found_intent.get("image")}
+        return {"text": stylize_response(response_text, found_intent.get("tag"), norm_input), "image": found_intent.get("image")}
 
-    # 6) Fallback ذكي + اقتراحات
     fallback_intent = get_intent_by_tag("fallback")
     fallback_text = pick_intent_response(fallback_intent, norm_input) if fallback_intent else "مش متأكد إني فهمت قصدك."
     suggestions = _format_suggestions(knowledge_base, top_debug)
-    return {"text": fallback_text + suggestions, "image": None}
-
-
-# ===========================
-# مسارات الموقع (Routes)
-# ===========================
+    return {"text": stylize_response(fallback_text + suggestions, "fallback", norm_input), "image": None}
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-# 🔥 المسار للأيقونة (Favicon) 🔥
+
+@app.route("/chat")
+def chat_page():
+    return render_template("chat.html")
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(
@@ -361,17 +359,14 @@ def favicon():
 
 @app.route("/get_response", methods=["POST"])
 def chat():
-    msg = request.form["msg"]
-    user_id = request.remote_addr or "web"
+    msg = request.form.get("msg", "")
+    cid = (request.form.get("cid") or "default").strip() or "default"
+    base_user_id = request.remote_addr or "web"
+    user_id = f"{base_user_id}:{cid}"
     return jsonify(get_bot_response(msg, user_id=user_id))
 
-
-# ===========================
-# بوابة تيليجرام (الجديدة) 🚀
-# ===========================
 @app.route('/telegram', methods=['POST'])
 def telegram_webhook():
-    # لو مش مفعّل تيليجرام، تجاهل
     if not TELEGRAM_TOKEN:
         return "OK"
 
@@ -380,25 +375,20 @@ def telegram_webhook():
     if "message" in update:
         chat_id = update["message"]["chat"]["id"]
 
-        # التأكد إن الرسالة نصية
         if "text" in update["message"]:
             text = update["message"]["text"]
 
-            # 1. هات الرد من البوت بتاعنا
             response = get_bot_response(text, str(chat_id))
             reply_text = response['text']
             reply_image = response['image']
 
-            # 2. ابعت النص لتيليجرام
             requests.post(
                 TELEGRAM_API_URL + "sendMessage",
                 json={"chat_id": chat_id, "text": reply_text},
                 timeout=10,
             )
 
-            # 3. لو فيه صورة، ابعتها
             if reply_image:
-                # لازم نحول المسار المحلي لرابط كامل عشان تيليجرام يشوفه
                 if MY_WEBSITE_URL:
                     full_image_url = MY_WEBSITE_URL + reply_image
                     requests.post(
@@ -409,6 +399,7 @@ def telegram_webhook():
 
     return "OK"
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.getenv("PORT", "5000"))
+    debug = os.getenv("FLASK_DEBUG", "").strip().lower() in {"1", "true", "yes", "on"}
+    app.run(host="0.0.0.0", port=port, debug=debug)
