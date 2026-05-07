@@ -1,0 +1,597 @@
+{
+  "meta": {
+    "bot_name": "Expert Systems Tutor",
+    "domain": "Expert Systems",
+    "language": "ar",
+    "version": "2026-05-07"
+  },
+  "intents": [
+    {
+      "tag": "greeting",
+      "title": "ترحيب",
+      "patterns": [
+        "اهلا",
+        "أهلا",
+        "اهلين",
+        "أهلين",
+        "اهلا وسهلا",
+        "أهلا وسهلا",
+        "اهلا بيك",
+        "أهلا بيك",
+        "اهلا يا معلم",
+        "أهلا يا معلم",
+        "اهلا يا باشا",
+        "أهلا يا باشا",
+        "يا اهلا",
+        "يا أهلا",
+        "يا هلا",
+        "يا هلا والله",
+        "يا مرحبا",
+        "هلا",
+        "هلا والله",
+        "مرحبا",
+        "سلام عليكم",
+        "السلام عليكم",
+        "سلامو عليكو",
+        "سلامو عليكم",
+        "سلامات",
+        "سلام يا غالي",
+        "سلام يا كبير",
+        "هاي",
+        "هلو",
+        "هيلو",
+        "الو",
+        "ألو",
+        "صباح الخير",
+        "صباح الفل",
+        "صباح الورد",
+        "صباح النور",
+        "يا صباح الفل",
+        "يا صباح الورد",
+        "يا صباح النور",
+        "مساء الخير",
+        "مساء الفل",
+        "مساء الورد",
+        "مساء النور",
+        "يا مساء الفل",
+        "يا مساء الورد",
+        "يا مساء النور",
+        "ازيك",
+        "أزيك",
+        "ازيك يا باشا",
+        "ازيك يا معلم",
+        "ازيك يا صاحبي",
+        "ازيك يا نجم",
+        "ازيك يا كبير",
+        "ازيكم",
+        "ازيكوا",
+        "ازيكو",
+        "اخبارك",
+        "أخبارك",
+        "اخبارك ايه",
+        "عامل ايه يا باشا",
+        "عامل ايه يا معلم",
+        "عامل ايه يا صاحبي",
+        "عامل ايه يا نجم",
+        "عامل ايه يا كبير",
+        "عامل ايه",
+        "عاملين ايه",
+        "عاملين ايه يا جماعة",
+        "عاملين ايه يا رجالة",
+        "يا عم ازيك",
+        "يا معلم",
+        "يا باشا",
+        "يا كبير",
+        "يا زعيم",
+        "يا نجم",
+        "يا بطل",
+        "يا حبيب",
+        "hello",
+        "hi",
+        "hey",
+        "yo",
+        "sup",
+        "good morning",
+        "good evening",
+        "start",
+        "بدء",
+        "ابدأ"
+      ],
+      "keywords": ["مساعد", "شات بوت", "بوت", "نظم خبيرة", "نظام خبير", "expert system", "expert systems"],
+      "responses": [
+        "أهلاً! أنا مساعد مادة النظم الخبيرة (Expert Systems).\nاسألني عن: تعريف النظام الخبير، مكوّناته، تاريخ النظم الخبيرة، طرق الاستدلال (Forward/Backward chaining)، تمثيل المعرفة، عدم اليقين، وأدوات زي CLIPS وProlog.\n\nلو تحب قائمة سريعة بالمواضيع اكتب: (مواضيع) أو (help).",
+        "يا أهلاً 👋\nأنا هنا كـ (Expert Systems Tutor) — اسأل أي سؤال في النظم الخبيرة، وأنا هجاوبك بشكل منهجي مع أمثلة.\nجرّب مثلاً: (يعني ايه نظام خبير؟) أو (الفرق بين Forward و Backward chaining) أو (مواضيع).",
+        "يا هلا! نورت 🤝\nقولّي تحب نبدأ بـ (مواضيع) ولا تسأل سؤال مباشر؟",
+        "أهلاً يا باشا 👋\nاسألني في Expert Systems وأنا معاك خطوة بخطوة.",
+        "إزيك؟ 👋\nعايز إجابة (مختصر) ولا (بالتفصيل)؟",
+        "صباح/مساء الفل 🌟\nجرّب تسأل: (مكوّنات النظام الخبير) أو (Forward vs Backward chaining).",
+        "أهلاً وسهلاً! 🤖\nلو تحب قائمة محاور سريعة اكتب: (مواضيع)."
+      ],
+      "responses_short": [
+        "أهلاً! اسألني أي حاجة عن Expert Systems.\nاكتب (مواضيع) علشان تشوف المحاور."
+      ],
+      "responses_long": [
+        "أهلاً بيك!\nأنا شات بوت تعليمي لمادة النظم الخبيرة (Expert Systems).\nاللي أقدر أساعدك فيه: (1) شرح مفاهيم المادة، (2) مقارنة بين طرق الاستدلال، (3) أمثلة قواعد IF-THEN، (4) خطوات بناء نظام خبير، (5) تثبيت وتشغيل أدوات زي CLIPS وSWI‑Prolog.\n\nابدأ بسؤال مباشر زي: (يعني إيه نظام خبير؟)"
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "help_topics",
+      "title": "مواضيع/مساعدة",
+      "patterns": [
+        "help",
+        "مساعدة",
+        "مواضيع",
+        "المواضيع",
+        "هات المواضيع",
+        "وريني المواضيع",
+        "قولي المواضيع",
+        "قايمة المواضيع",
+        "قائمة المواضيع",
+        "تقدر تعمل ايه",
+        "بتفهم في ايه",
+        "topics",
+        "menu"
+      ],
+      "keywords": ["قائمة", "المحاور", "اسأل", "اقتراحات"],
+      "responses": [
+        "تمام يا باشا 👌 دي المحاور اللي أقدر أساعدك فيها:\n1) تعريف النظام الخبير + الفرق عن AI/ML\n2) التاريخ (DENDRAL, MYCIN, XCON)\n3) المكوّنات (Knowledge Base, Inference Engine, Working Memory, Explanation)\n4) تمثيل المعرفة (Rules/Frames/Semantic Nets/Logic)\n5) الاستدلال (Forward/Backward chaining) + حل التعارض\n6) عدم اليقين (Certainty Factors, Bayes, Fuzzy)\n7) أدوات وسِـلَف (CLIPS, Prolog) + خطوات التثبيت\n\nقولي نبدأ بأنهي واحد؟"
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "what_is_expert_system",
+      "title": "تعريف النظام الخبير",
+      "patterns": [
+        "تعريف النظم",
+        "تعريف النظم الخبيرة",
+        "تعريف نظام خبير",
+        "عايز تعريف النظام الخبير",
+        "عايز تعريف النظم الخبيرة",
+        "قولّي تعريف النظام الخبير",
+        "اشرح تعريف النظام الخبير",
+        "عرفلي النظام الخبير",
+        "عرفلي النظم الخبيرة",
+        "يعني ايه النظم الخبيرة",
+        "يعني ايه نظام خبير",
+        "ما هو النظام الخبير",
+        "تعريف النظام الخبير",
+        "what is an expert system",
+        "expert system definition",
+        "نظام خبير",
+        "نظم خبيرة",
+        "expert systems"
+      ],
+      "keywords": ["if then", "قواعد", "خبرة", "استنتاج", "تشخيص", "قرار", "knowledge"],
+      "responses_short": [
+        "النظام الخبير هو برنامج بيحاكي قرارات خبير بشري في مجال محدد باستخدام قاعدة معرفة + محرك استدلال."
+      ],
+      "responses": [
+        "النظام الخبير (Expert System) هو نظام ذكاء اصطناعي بيحاكي طريقة تفكير خبير بشري داخل (Domain) محدد.\nالفكرة الأساسية: معرفة صريحة + استدلال.\n\nالتركيبة غالباً بتكون:\n- Knowledge Base: قواعد/حقائق\n- Inference Engine: بيستنتج نتائج من القواعد\n- Working Memory: حقائق الحالة الحالية\n- Explanation Facility: يشرح (ليه/إزاي) وصل للنتيجة"
+      ],
+      "responses_long": [
+        "تعريف أدق:\nالنظام الخبير هو برنامج يعتمد على تمثيل معرفة الخبراء (Knowledge Representation) + آلية استدلال (Inference) لإنتاج قرارات/تشخيصات قابلة للتفسير.\n\nمميزاته عن برامج الـ Logic العادية:\n- بيشتغل بقواعد IF-THEN (Production Rules) أو Frames أو Logic\n- بيقدّم تفسير لمسار التفكير\n- مناسب للمشاكل اللي فيها خبرة تراكمية ومجال ضيق (Narrow Domain)\n\nأمثلة كلاسيكية: MYCIN (تشخيص طبي)، XCON (تكوين أجهزة)، DENDRAL (تحليل كيميائي)."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "expert_system_history",
+      "title": "تاريخ النظم الخبيرة",
+      "patterns": ["تاريخ النظم الخبيرة", "تاريخ النظام الخبير", "نشأة النظم الخبيرة", "expert systems history", "MYCIN", "DENDRAL", "XCON"],
+      "keywords": ["سبعينات", "ثمانينات", "expert system era", "knowledge engineering"],
+      "responses": [
+        "لمحة تاريخية سريعة:\n- 1960s–1970s: ظهور أول أنظمة خبيرة بحثية (DENDRAL)\n- 1970s: MYCIN (طب) وفكرة Certainty Factors\n- 1980s: طفرة تجارية (XCON) وانتشار مصطلح Knowledge Engineering\n- 1990s: تراجع نسبي بسبب صعوبة جمع المعرفة والصيانة\n- 2000s–الآن: رجوع جزئي داخل أنظمة الأعمال، ومعها دمج مع ML (Hybrid Systems)"
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "components",
+      "title": "مكوّنات النظام الخبير",
+      "patterns": ["مكونات النظام الخبير", "اجزاء النظام الخبير", "مكوّنات", "components of expert system", "knowledge base", "inference engine", "working memory"],
+      "keywords": ["قاعدة المعرفة", "محرك الاستدلال", "ذاكرة العمل", "وحدة التفسير", "واجهة"],
+      "responses": [
+        "المكوّنات الأساسية للنظام الخبير:\n1) Knowledge Base: القواعد/الحقائق اللي بتمثل خبرة المجال\n2) Inference Engine: يطبّق القواعد ويستنتج نتائج (Forward/Backward chaining)\n3) Working Memory (Fact Base): حقائق الحالة الحالية للمستخدم\n4) Explanation Facility: يجاوب (ليه؟/إزاي؟)\n5) User Interface: الحوار مع المستخدم\n\nتحب أشرح الفرق بين Knowledge Base وWorking Memory؟"
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "kb_vs_wm",
+      "title": "Knowledge Base vs Working Memory",
+      "patterns": [
+        "الفرق بين قاعدة المعرفة وذاكرة العمل",
+        "الفرق بين knowledge base و working memory",
+        "knowledge base vs working memory",
+        "فرق قاعدة المعرفة وذاكرة العمل",
+        "fact base",
+        "working memory",
+        "قاعدة المعرفة",
+        "ذاكرة العمل"
+      ],
+      "keywords": ["الفرق", "قاعدة المعرفة", "knowledge base", "working memory", "facts", "facts base"],
+      "responses": [
+        "الفرق ببساطة:\n- Knowledge Base: خبرة المجال نفسها (قواعد/حقائق عامة) — بتتغير ببطء\n- Working Memory / Fact Base: حقائق الحالة الحالية اللي جاية من المستخدم/البيئة أثناء الجلسة — بتتغير بسرعة\n\nمثال: قاعدة معرفة = (IF حرارة عالية AND سعال THEN اشتباه إنفلونزا).\nذاكرة عمل = (حرارة=39، سعال=نعم) في حالة المستخدم الحالي."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "explanation_facility",
+      "title": "وحدة التفسير (Explanation Facility)",
+      "patterns": [
+        "وحدة التفسير",
+        "explanation facility",
+        "explainability",
+        "تفسير النتيجة",
+        "تتبع الاستدلال",
+        "trace",
+        "why explanation",
+        "how explanation"
+      ],
+      "keywords": ["ليه", "إزاي", "ازاي", "why", "how", "trace", "explain"],
+      "responses": [
+        "Explanation Facility بتدي النظام ميزة مهمة: (يشرح طريقته).\nعادةً بيدعم نوعين من الأسئلة:\n- WHY? (ليه بتسأل السؤال ده؟ / ليه النتيجة دي؟)\n- HOW? (إزاي وصلت للاستنتاج؟)\n\nمثال HOW: النظام يعرض سلسلة القواعد اللي اتنفذت + الحقائق اللي اتضافت لحد النتيجة."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "knowledge_representation",
+      "title": "تمثيل المعرفة",
+      "patterns": ["تمثيل المعرفة", "knowledge representation", "قواعد", "frames", "semantic network", "logic"],
+      "keywords": ["production rules", "if then", "اطارات", "شبكات دلالية", "منطق", "ontologies"],
+      "responses": [
+        "تمثيل المعرفة (Knowledge Representation) يعني: إزاي نخزن خبرة الخبير بشكل قابل للمعالجة. أشهر الأساليب:\n- Production Rules (IF–THEN): الأكثر شيوعاً في النظم الخبيرة\n- Frames: تمثيل كائنات بخصائص وقيم\n- Semantic Networks: علاقات بين مفاهيم (is-a / part-of)\n- Logic (زي Prolog): تمثيل حقائق وعلاقات واستنتاج منطقي\n\nقولّي تحب مثال عملي بأي طريقة؟"
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "frames",
+      "title": "Frames (الإطارات)",
+      "patterns": ["frames", "frame", "تمثيل بالاطارات", "تمثيل بالإطارات", "اطارات", "إطارات", "slots", "inheritance frames"],
+      "keywords": ["slot", "slots", "attribute", "value", "وراثة", "inheritance", "default"],
+      "responses": [
+        "Frames = طريقة تمثيل معرفة شبه البرمجة الكائنية (Objects).\nكل Frame بيكون (كائن/مفهوم) ومعاه Slots (خصائص) وقيم.\n\nمثال سريع:\nFrame: Car\n- slots: (color), (engine), (fuel)\n\nالميزة: inheritance — Frame فرعي يرث Slots من Frame عام (زي Vehicle → Car)."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "semantic_networks",
+      "title": "Semantic Networks (الشبكات الدلالية)",
+      "patterns": ["semantic network", "semantic networks", "شبكة دلالية", "شبكات دلالية", "is-a", "part-of", "علاقات مفاهيم"],
+      "keywords": ["graph", "nodes", "edges", "is-a", "part-of", "وراثة"],
+      "responses": [
+        "Semantic Networks = تمثيل المعرفة كـ Graph:\n- Nodes = مفاهيم/كائنات\n- Edges = علاقات\n\nأشهر العلاقات:\n- is-a: علاقة نوع/تصنيف (Dog is-a Animal) وبتفيد في الوراثة\n- part-of: علاقة جزء من (Wheel part-of Car)\n\nمفيدة لما المعرفة أساسها علاقات بين مفاهيم أكتر من كونها قواعد شرطية." 
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "inference_overview",
+      "title": "الاستدلال (Inference)",
+      "patterns": ["استدلال", "inference", "محرك الاستدلال", "forward chaining", "backward chaining", "استنتاج"],
+      "keywords": ["forward", "backward", "agenda", "conflict", "match", "fire"],
+      "responses": [
+        "الاستدلال هو آلية تحويل (حقائق + قواعد) إلى (نتيجة).\nأشهر طريقتين:\n- Forward Chaining: من الحقائق للنتائج (Data‑Driven)\n- Backward Chaining: من الهدف للحقائق (Goal‑Driven)\n\nعايز الفرق بينهم بمثال؟"
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "forward_chaining",
+      "title": "Forward Chaining",
+      "patterns": ["forward chaining", "الاستدلال الامامي", "قدام", "data driven"],
+      "keywords": ["forward", "امامي", "حقائق", "قواعد", "تشغيل القواعد"],
+      "responses": [
+        "Forward Chaining (Data‑Driven):\nبنبدأ بالحقائق الموجودة، ونشوف أنهي قواعد شروطها اتحققت، ونشغّلها (fire) علشان نضيف حقائق جديدة… لحد ما نوصل لنتيجة.\n\nمناسب لـ: المراقبة/التشخيص لما البيانات بتوصل تدريجيًا (زي أعطال)."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "backward_chaining",
+      "title": "Backward Chaining",
+      "patterns": ["backward chaining", "الاستدلال الخلفي", "ورا", "goal driven"],
+      "keywords": ["backward", "خلفي", "هدف", "فرضية", "اسئلة"],
+      "responses": [
+        "Backward Chaining (Goal‑Driven):\nبنبدأ بهدف/فرضية (مثلاً: هل المرض X موجود؟) وبنرجع لورا ندور على قواعد تقدر تثبت الهدف، ونحوّل الشروط لأسئلة/أهداف أصغر.\n\nمناسب لـ: أنظمة الاستشارة (Consultation) اللي بتسأل المستخدم أسئلة متتابعة."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "conflict_resolution",
+      "title": "حل التعارض (Conflict Resolution)",
+      "patterns": ["حل التعارض", "conflict resolution", "agenda", "اختيار القاعدة", "تزاحم القواعد"],
+      "keywords": ["اولوية", "specificity", "recency", "salience", "agenda"],
+      "responses": [
+        "لما أكتر من قاعدة تكون قابلة للتنفيذ في نفس اللحظة، بنحتاج Conflict Resolution. أشهر سياسات الاختيار:\n- Specificity: القاعدة الأكثر تحديدًا (شروط أكتر)\n- Recency: القاعدة اللي تعتمد على حقائق اتضافت قريب\n- Priority/Salience: لكل قاعدة أولوية ثابتة\n\nفي CLIPS مثلاً بنستخدم salience لترتيب القواعد."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "uncertainty",
+      "title": "عدم اليقين",
+      "patterns": ["عدم اليقين", "uncertainty", "certainty factor", "cf", "fuzzy", "bayes"],
+      "keywords": ["certainty", "عامل الثقة", "احتمالات", "بابيز", "ضبابي", "fuzzy logic"],
+      "responses": [
+        "في النظم الخبيرة الواقعية، البيانات مش دايمًا 100% مؤكدة. طرق التعامل مع عدم اليقين:\n- Certainty Factors (زي MYCIN): رقم يمثل درجة الثقة\n- Bayesian Reasoning: احتمالات مشروطة\n- Fuzzy Logic: درجات انتماء (مش صح/غلط بس)\n\nقولّي تحب شرح CF ولا Fuzzy بمثال؟"
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "certainty_factors",
+      "title": "Certainty Factors (CF)",
+      "patterns": ["certainty factor", "cf", "عامل اليقين", "عامل الثقه", "MYCIN", "certainty factors"],
+      "keywords": ["cf", "mcyin", "درجة الثقة", "uncertainty"],
+      "responses_short": [
+        "CF هي طريقة بسيطة لتمثيل درجة الثقة في الاستنتاج بدل (صح/غلط) فقط."
+      ],
+      "responses": [
+        "Certainty Factor (CF) = رقم بيمثل (قد إيه إحنا واثقين) في حقيقة/استنتاج.\nشائع إن المدى يكون من -1 إلى +1:\n- +1 = تأكيد قوي\n- 0 = غير معروف\n- -1 = نفي قوي\n\nMYCIN استخدم CF للتشخيص الطبي لما الأدلة تكون غير مؤكدة."
+      ],
+      "responses_long": [
+        "تفصيل سريع (مفيد في الشرح):\n1) كل دليل/قاعدة ممكن يطلع CF للاستنتاج\n2) لو عندك أكتر من دليل لنفس الاستنتاج، بتجمعهم بقواعد دمج (Combining)\n\nأشهر صيغة دمج (لما الاتنين موجب):\nCF = CF1 + CF2 * (1 - CF1)\n\nالهدف: تزود الثقة تدريجيًا بدون ما تتخطى +1."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "fuzzy_logic",
+      "title": "Fuzzy Logic (المنطق الضبابي)",
+      "patterns": ["fuzzy", "fuzzy logic", "منطق ضبابي", "فازي", "ضبابي", "fuzzification", "defuzzification"],
+      "keywords": ["membership", "درجة انتماء", "membership function", "مجموعات ضبابية", "defuzzification"],
+      "responses_short": [
+        "Fuzzy Logic بيخلي الحقيقة (درجة) مش قيمة ثنائية بس."
+      ],
+      "responses": [
+        "Fuzzy Logic بيستخدم (درجات انتماء) بدل True/False.\nمثال: درجة حرارة 38 ممكن تكون (مرتفعة) بدرجة 0.8 و(متوسطة) بدرجة 0.2.\n\nخطواته غالبًا:\n1) Fuzzification (تحويل القيم لدرجات انتماء)\n2) تطبيق قواعد Fuzzy IF‑THEN\n3) Defuzzification (تحويل الناتج لقيمة رقمية نهائية)"
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "shells_tools",
+      "title": "أدوات بناء النظم الخبيرة",
+      "patterns": ["ادوات", "tools", "shell", "expert system shell", "clips", "jess", "drools", "prolog"],
+      "keywords": ["clp", "clips", "swi prolog", "prolog", "rule engine"],
+      "responses": [
+        "أشهر الأدوات/الأطر لبناء نظم خبيرة:\n- CLIPS: لغة/بيئة قواعد ممتازة للتعلم (Rule‑Based)\n- Prolog (زي SWI‑Prolog): ممتاز للمنطق والاستعلام (Logic Programming)\n- Jess/Drools: Rule Engines (أكتر انتشارًا في الشركات)\n\nعايز خطوات تثبيت CLIPS على Windows ولا تثبيت SWI‑Prolog؟"
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "clips_basics",
+      "title": "أساسيات CLIPS",
+      "patterns": [
+        "أساسيات clips",
+        "clips basics",
+        "ازاي اكتب قواعد في clips",
+        "defrule",
+        "deftemplate",
+        "facts in clips",
+        "agenda clips",
+        "salience clips"
+      ],
+      "keywords": ["defrule", "deftemplate", "deffacts", "assert", "retract", "facts", "agenda", "reset", "run", "salience"],
+      "responses": [
+        "CLIPS بيشتغل كنظام قواعد (Rule Engine). أهم المفاهيم:\n- Facts: حقائق (assert) / ممكن تتشال (retract)\n- Templates: شكل الحقائق (deftemplate)\n- Rules: قواعد IF‑THEN (defrule)\n- Agenda: قائمة القواعد الجاهزة للتنفيذ\n- reset / run: بدء وتنفيذ الاستدلال\n\nلو تحب: اكتب (مثال CLIPS) وأنا أديك كود كامل بسيط."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "prolog_basics",
+      "title": "أساسيات Prolog",
+      "patterns": [
+        "أساسيات prolog",
+        "prolog basics",
+        "ازاي بشتغل في prolog",
+        "facts rules queries",
+        "unification",
+        "backtracking",
+        "بروولوج"
+      ],
+      "keywords": ["facts", "rules", "queries", "unification", "backtracking", "logic programming"],
+      "responses": [
+        "Prolog = Logic Programming. أنت بتكتب:\n- Facts: حقائق (زي parent(ali, sara).)\n- Rules: قواعد (زي grandparent(X,Y) :- ...)\nوبتسأل Queries والنظام يجاوب باستخدام:\n- Unification (توحيد المتغيرات)\n- Backtracking (تجربة بدائل)\n\nلو تحب اكتب (مثال Prolog) وهتشوف مثال كامل بالاستعلام."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "clips_example",
+      "title": "مثال CLIPS",
+      "patterns": ["مثال clips", "clips example", "وريني كود clips", "مثال defrule", "example defrule"],
+      "keywords": ["defrule", "deftemplate", "deffacts", "assert", "reset", "run"],
+      "responses": [
+        "مثال CLIPS بسيط (تشخيص أولي):\n\n(deftemplate symptom (slot fever) (slot cough))\n\n(deffacts case1\n  (symptom (fever yes) (cough yes))\n)\n\n(defrule suspect-flu\n  (symptom (fever yes) (cough yes))\n  =>\n  (assert (diagnosis flu))\n)\n\n(reset)\n(run)\n(facts)\n\nهتلاقي (diagnosis flu) اتضافت بعد تشغيل القاعدة."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "prolog_example",
+      "title": "مثال Prolog",
+      "patterns": ["مثال prolog", "prolog example", "وريني كود prolog", "example query", "مثال استعلام"],
+      "keywords": ["parent", "grandparent", "query", "?-"],
+      "responses": [
+        "مثال Prolog (Facts + Rule + Query):\n\nparent(ali, sara).\nparent(sara, omar).\n\ngrandparent(X, Y) :- parent(X, Z), parent(Z, Y).\n\n?- grandparent(ali, omar).\n\nالنتيجة المتوقعة: true."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "clips_install",
+      "title": "تثبيت CLIPS",
+      "patterns": ["تثبيت clips", "install clips", "ازاي انزل clips", "clips windows"],
+      "keywords": ["clips", "download", "تشغيل", "بيئة", "shell"],
+      "responses": [
+        "خطوات تثبيت وتشغيل CLIPS على Windows (مختصرة):\n1) نزّل نسخة CLIPS الرسمية لويندوز (ملف مضغوط).\n2) فك الضغط (Extract).\n3) شغّل ملف التنفيذ (clips.exe) أو بيئة التشغيل الموجودة داخل الفولدر.\n4) جرّب أمر بسيط: (reset) ثم (run).\n\nلو حابب، ابعتلي اسم نسخة الويندوز اللي عندك (10/11) وأنا أكتبلك خطوات أدق حسبها."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "prolog_install",
+      "title": "تثبيت Prolog (SWI‑Prolog)",
+      "patterns": ["تثبيت prolog", "install prolog", "swi prolog", "ازاي انزل بروولوج"],
+      "keywords": ["prolog", "swi", "logic", "query"],
+      "responses": [
+        "خطوات تثبيت SWI‑Prolog على Windows:\n1) نزّل SWI‑Prolog (المثبت الرسمي).\n2) Install كأي برنامج عادي، وخلي خيار إضافة المسار للـPATH لو متاح.\n3) افتح SWI‑Prolog وجرّب ملف بسيط فيه facts + rules.\n\nلو تحب أكتب مثال جاهز (facts/rules/queries) قولّي."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "development_lifecycle",
+      "title": "خطوات بناء نظام خبير",
+      "patterns": ["بناء نظام خبير", "ازاي اعمل نظام خبير", "خطوات", "development", "lifecycle", "knowledge acquisition"],
+      "keywords": ["knowledge acquisition", "validation", "prototype", "rule base"],
+      "responses": [
+        "خطوات بناء نظام خبير بشكل عملي:\n1) تحديد المشكلة والمجال (Domain) وحدودها\n2) جمع المعرفة (Knowledge Acquisition): مقابلات/مراجع/حالات\n3) اختيار تمثيل المعرفة (Rules/Frames/Logic)\n4) بناء نموذج أولي (Prototype) بسرعة\n5) اختبار + تحقق (Verification/Validation) مع خبير المجال\n6) تحسين وإضافة وحدة تفسير (Explanation)\n7) نشر النظام وصيانة القواعد\n\nلو عايز مثال مشروع عملي للمادة (فكرة + قواعد) قولّي المجال اللي تحبه."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "knowledge_acquisition",
+      "title": "جمع المعرفة (Knowledge Acquisition)",
+      "patterns": [
+        "جمع المعرفة",
+        "اكتساب المعرفة",
+        "knowledge acquisition",
+        "knowledge engineering",
+        "knowledge bottleneck",
+        "عنق الزجاجة",
+        "knowledge engineer"
+      ],
+      "keywords": ["خبير", "مقابلات", "حالات", "case", "protocol", "bottleneck"],
+      "responses": [
+        "Knowledge Acquisition = مرحلة استخراج خبرة الخبير وتحويلها لتمثيل رسمي (قواعد/Frames/Logic).\nطرق شائعة:\n- Interviews: مقابلات منظمة مع خبير المجال\n- Case Analysis: تحليل حالات واقعية + نتائجها\n- Think‑Aloud Protocol: الخبير يشرح تفكيره خطوة بخطوة\n\nالتحدي الأشهر: Knowledge Bottleneck — الخبرة ساعات تكون ضمنية وصعب تتكتب."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "verification_validation",
+      "title": "Verification vs Validation",
+      "patterns": ["verification", "validation", "التحقق", "التصديق", "اختبار النظام الخبير", "تقييم النظام الخبير"],
+      "keywords": ["testing", "errors", "coverage", "expert review"],
+      "responses": [
+        "الفرق المهم:\n- Verification: هل بنينا النظام صح؟ (القواعد صح؟ مافيش تناقضات؟)\n- Validation: هل بنينا النظام الصح؟ (بيحل مشكلة المجال فعلاً؟ نتائجه مقبولة عند الخبير؟)\n\nأمثلة أدوات التقييم: مراجعة خبير، حالات اختبار (Test Cases)، قياس الدقة/التغطية، وتحليل التعارض بين القواعد."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "applications",
+      "title": "تطبيقات النظم الخبيرة",
+      "patterns": ["تطبيقات", "مجالات", "use cases", "فين بتستخدم", "امثلة استخدام", "applications of expert systems"],
+      "keywords": ["diagnosis", "troubleshooting", "configuration", "planning", "advisory"],
+      "responses": [
+        "أشهر تطبيقات Expert Systems:\n- Diagnosis: تشخيص (طب/أعطال)\n- Troubleshooting: تحديد سبب عطل في نظام\n- Configuration: تكوين/تجميع منتجات (زي XCON)\n- Advisory/Consultation: استشارات (قانون/ضرائب/إرشاد)\n- Monitoring: مراقبة أنظمة وتشغيل إنذارات\n\nلو تحب أطلع لك 3 أفكار مشاريع عملية للمادة قولّي المجال اللي تحبه."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "advantages",
+      "title": "مميزات النظم الخبيرة",
+      "patterns": ["مميزات", "فوائد", "advantages", "ليه نستخدم نظم خبيرة"],
+      "keywords": ["تفسير", "explainable", "سرعة", "اتاحة الخبرة"],
+      "responses": [
+        "مميزات النظم الخبيرة:\n- تفسير القرارات (Explainability)\n- توثيق خبرة الخبير وإتاحتها 24/7\n- مفيدة في المجالات ذات القواعد الواضحة\n- تقليل الأخطاء الروتينية وتوحيد القرار\n\nلو تحب أقول العيوب/القيود كمان؟"
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "limitations",
+      "title": "عيوب/قيود النظم الخبيرة",
+      "patterns": ["عيوب", "مشاكل", "limitations", "قيود", "سلبيات"],
+      "keywords": ["knowledge bottleneck", "صيانة", "هشاشة", "brittle"],
+      "responses": [
+        "قيود النظم الخبيرة (بصراحة):\n- Knowledge Acquisition Bottleneck: جمع معرفة الخبير صعب وبياخد وقت\n- الصيانة: تحديث القواعد مع تغيّر المجال\n- brittleness: ممكن تنهار خارج نطاقها\n- التعامل مع بيانات ضخمة/معقدة أصعب من ML\n\nعشان كده ساعات بنستخدم Hybrid (Rules + ML)."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "expert_vs_ml",
+      "title": "Expert Systems vs Machine Learning",
+      "patterns": ["الفرق بين النظم الخبيرة والتعلم الالي", "expert system vs machine learning", "rules vs ml", "مش زي ml"],
+      "keywords": ["تعلم آلي", "machine learning", "data", "rules"],
+      "responses": [
+        "فرق سريع:\n- Expert System: قواعد صريحة (IF‑THEN) + تفسير واضح، يعتمد على خبرة مكتوبة\n- ML: يتعلم من البيانات (Data‑Driven)، ممكن يكون أداؤه أعلى لكن تفسيره أصعب\n\nلو الدكتور عايز Expert System، ركّز على (قواعد + محرك استدلال + تفسير)."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "example_rules",
+      "title": "مثال قواعد (IF‑THEN)",
+      "patterns": ["مثال قواعد", "if then example", "وريني rule", "production rule", "مثال نظام خبير"],
+      "keywords": ["if", "then", "rule", "fact", "diagnosis"],
+      "responses": [
+        "مثال بسيط (Rules) لفكرة تشخيص أعطال Wi‑Fi:\n\nRule 1:\nIF (الراوتر شغال) AND (لا يوجد انترنت) AND (كل الاجهزة متأثرة)\nTHEN (المشكلة غالباً من مزوّد الخدمة ISP)\n\nRule 2:\nIF (لا يوجد انترنت) AND (جهاز واحد فقط متأثر)\nTHEN (المشكلة من الجهاز/الاعدادات)\n\nعايز نفس المثال بصيغة CLIPS أو Prolog؟"
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "reset",
+      "title": "إعادة ضبط",
+      "patterns": ["reset", "امسح", "ابدأ من جديد", "ابدأ من الاول", "مسح الذاكرة", "new chat"],
+      "keywords": ["ريست", "ذاكرة"],
+      "responses": [
+        "تمام — مسحت سياق المحادثة.\nابدأ بسؤال زي: (يعني ايه نظام خبير؟) أو اكتب (مواضيع)."
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "thanks",
+      "title": "شكر",
+      "patterns": ["شكرا", "تسلم", "تمام", "عاش", "ممتاز", "thanks", "thx"],
+      "responses": [
+        "العفو! لو تحب أراجع معاك قبل العملي: اسألني سؤالين وانا هجاوبهم كأنها شفهي.",
+        "تحت أمرك — قولّي تحب تذاكر أي محور؟"
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "goodbye",
+      "title": "وداع",
+      "patterns": ["سلام", "مع السلامة", "باي", "bye", "goodbye"],
+      "responses": [
+        "مع السلامة! لو احتجت مراجعة سريعة قبل الامتحان/العملي أنا موجود.",
+        "باي 👋 بالتوفيق في العملي!"
+      ],
+      "image": null
+    },
+
+    {
+      "tag": "fallback",
+      "title": "غير مفهوم",
+      "patterns": [],
+      "responses": [
+        "بص يا معلم، مش ماسك قصدك قوي.\nجرّب تسألني عن: (تعريف النظام الخبير) أو (Forward vs Backward chaining) أو (تمثيل المعرفة) أو (عدم اليقين) أو (تثبيت CLIPS).\nولو تحب القائمة كلها اكتب: (مواضيع).",
+        "تمام… ممكن توضحلي قصدك أكتر؟\nمثلاً: عايز (تعريف) ولا (مكوّنات) ولا (استدلال)؟\nاكتب (مواضيع) وهقولك المحاور.",
+        "مش واضحلي السؤال بالظبط.\nقولّي: بتسأل عن (النظام الخبير) ولا (القواعد) ولا (عدم اليقين)؟\nولو تحب أمثلة كمان قولي (بالتفصيل).",
+        "حاضر، بس محتاج منك كلمة أو اتنين زيادة عشان أظبطلك الإجابة.\nاكتب (مواضيع) أو اكتب السؤال كده: (تعريف النظام الخبير) / (مكوّنات النظام الخبير) / (Forward chaining)."
+      ],
+      "image": null
+    }
+  ]
+}

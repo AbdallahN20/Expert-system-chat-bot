@@ -29,8 +29,22 @@ python app.py
 - `MY_WEBSITE_URL`: رابط موقعك العام (لو محتاج إرسال صور في تيليجرام كرابط كامل).
 
 ## ملاحظة مهمة عن GitHub Pages
-GitHub Pages **بيشغّل ملفات Static فقط (HTML/CSS/JS)** ومش بيشغّل Flask/Python.
-لو هدفك “لينك شغال” للـFlask، استخدم منصة Hosting زي Render / Railway / Heroku.
+GitHub Pages **بيشغّل ملفات Static فقط (HTML/CSS/JS)** ومش بيشغّل Flask/Python مباشرة.
+
+### GitHub Pages (نسخة Static جاهزة)
+المشروع فيه نسخة Static جاهزة داخل مجلد `docs/` بتشتغل بالكامل على GitHub Pages:
+- الموقع + صفحة الشات شغالين
+- الشات بوت بيشتغل على المتصفح (بيقرأ `knowledge.json`)
+- هيستوري المحادثات بيتحفظ في `localStorage` على نفس الجهاز/المتصفح
+
+تفعيلها:
+1) اعمل commit/push لملفّات `docs/`.
+2) على GitHub: Settings → Pages → Source: Deploy from a branch.
+3) اختار Branch: `main` و Folder: `/docs` ثم Save.
+
+بعدها افتح رابط GitHub Pages اللي GitHub بيطلعهولك.
+
+لو هدفك Flask Online (سيرفر Python + Telegram Webhook…)، استخدم منصة Hosting زي Render / Railway / Heroku.
 
 ## Deploy (عام) من GitHub على Render (مقترح)
 1) ارفع المشروع على GitHub.

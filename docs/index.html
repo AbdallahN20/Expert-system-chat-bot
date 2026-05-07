@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Systems | المساعد الذكي</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="liquid-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <nav class="glass-nav">
+        <div class="logo" aria-label="Expert Systems">
+            <span class="logo-mark" aria-hidden="true"><i class="fa-solid fa-brain"></i></span>
+            <span class="logo-text">Expert Systems</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#topics">محاور المادة</a></li>
+            <li><a href="#examples">أمثلة سريعة</a></li>
+            <li><a href="#about">عن البوت</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero-section">
+        <div class="hero-content glass-card">
+            <h1>مساعد النظم الخبيرة</h1>
+            <p>شات بوت تعليمي لمادة <b>Expert Systems</b> — اسأل عن التعريف، التاريخ، المكونات، تمثيل المعرفة، الاستدلال، وعدم اليقين.</p>
+            <button class="cta-btn" onclick="location.href='chat.html'">ابدأ الشات</button>
+        </div>
+    </section>
+
+    <section id="topics" class="section-padding">
+        <h2 class="section-title">محاور المادة</h2>
+        <div class="cards-container">
+            <div class="service-card glass-card">
+                <i class="fas fa-robot icon"></i>
+                <h3>أساسيات النظم الخبيرة</h3>
+                <p>تعريف النظام الخبير، الفرق عن AI/ML، والتاريخ (DENDRAL / MYCIN / XCON).</p>
+            </div>
+            <div class="service-card glass-card">
+                <i class="fas fa-sitemap icon"></i>
+                <h3>الاستدلال والقواعد</h3>
+                <p>Forward/Backward chaining، حل التعارض (Agenda/Salience)، وأمثلة قواعد IF‑THEN.</p>
+            </div>
+            <div class="service-card glass-card">
+                <i class="fas fa-brain icon"></i>
+                <h3>تمثيل المعرفة وعدم اليقين</h3>
+                <p>Rules/Frames/Semantic Networks/Logic + التعامل مع Uncertainty (CF/Bayes/Fuzzy).</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="examples" class="section-padding">
+        <h2 class="section-title">أمثلة سريعة</h2>
+        <div class="cards-container">
+            <div class="service-card glass-card">
+                <i class="fas fa-code icon"></i>
+                <h3>Rule (IF‑THEN)</h3>
+                <p>IF (كل الأجهزة لا يوجد إنترنت) THEN (المشكلة غالباً من مزوّد الخدمة ISP).</p>
+            </div>
+            <div class="service-card glass-card">
+                <i class="fas fa-gears icon"></i>
+                <h3>Inference Engine</h3>
+                <p>Forward Chaining يبدأ من الحقائق → النتائج. Backward Chaining يبدأ من الهدف → أسئلة تثبت الهدف.</p>
+            </div>
+            <div class="service-card glass-card">
+                <i class="fas fa-circle-question icon"></i>
+                <h3>Explainability</h3>
+                <p>ميزة مهمة في Expert Systems: البوت يقدر يشرح (ليه/إزاي) وصل للإجابة.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="about" class="glass-footer">
+        <p>مشروع عملي — مادة النظم الخبيرة (Expert Systems) © 2026</p>
+    </footer>
+
+    <button id="chatToggle" class="chat-toggle-btn" type="button" aria-label="فتح الشات">
+        <i class="fa-solid fa-comment-dots" aria-hidden="true"></i>
+    </button>
+
+    <div class="chat-wrapper" id="chatWrapper">
+        <div class="chat-header">
+            <div class="chat-title">
+                <i class="fa-solid fa-brain" aria-hidden="true"></i>
+                <span>مساعد النظم الخبيرة</span>
+            </div>
+            <button class="close-chat" type="button" onclick="toggleChat()" aria-label="إغلاق الشات">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="chat-body" id="chatLogs">
+            <div class="message-row bot-row">
+                <div class="message bot-msg">أهلاً! 👋\nاسألني عن Expert Systems — واكتب (مواضيع) علشان تشوف المحاور.</div>
+            </div>
+        </div>
+
+        <div class="chat-footer">
+            <input type="text" id="userInput" placeholder="اكتب سؤالك في النظم الخبيرة...">
+            <button id="sendBtn" type="button" aria-label="إرسال">
+                <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        window.__ES_KNOWLEDGE_URL = "knowledge.json";
+    </script>
+    <script src="assets/js/chat_engine.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat | Expert Systems</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="chat-page">
+    <div class="liquid-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="chat-app" role="application" aria-label="Expert Systems Chat">
+        <aside class="chat-sidebar glass-card" aria-label="قائمة المحادثات">
+            <div class="sidebar-header">
+                <button class="sidebar-new-chat" id="newChatBtn" type="button">
+                    <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                    <span>محادثة جديدة</span>
+                </button>
+                <div class="sidebar-caption">المحادثات</div>
+            </div>
+
+            <div class="sidebar-list" id="chatList"></div>
+        </aside>
+
+        <main class="chat-main glass-card" aria-label="محتوى المحادثة">
+            <header class="chat-main-header">
+                <div class="chat-main-title">
+                    <div class="chat-main-title-row">
+                        <span class="chat-main-brand" aria-hidden="true"><i class="fa-solid fa-brain"></i></span>
+                        <span id="activeChatTitle">محادثة جديدة</span>
+                    </div>
+                </div>
+
+                <div class="chat-main-actions">
+                    <button class="ghost-btn" id="restartBtn" type="button">ابدأ من جديد</button>
+                    <button class="ghost-btn danger" id="endBtn" type="button">إنهاء الشات</button>
+                </div>
+            </header>
+
+            <section class="chat-main-body" id="messages" aria-live="polite"></section>
+
+            <footer class="chat-main-footer">
+                <textarea id="messageInput" rows="1" placeholder="اكتب سؤالك في النظم الخبيرة..."></textarea>
+                <button class="send-btn" id="sendBtn" type="button" aria-label="إرسال">
+                    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+                </button>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        window.__ES_KNOWLEDGE_URL = "knowledge.json";
+    </script>
+    <script src="assets/js/chat_engine.js"></script>
+    <script src="assets/js/chat_page.js"></script>
+</body>
+</html>
