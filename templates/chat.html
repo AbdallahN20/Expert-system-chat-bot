@@ -16,45 +16,31 @@
         <div class="blob blob-3"></div>
     </div>
 
-    <div class="chat-app" role="application" aria-label="Expert Systems Chat">
-        <aside class="chat-sidebar glass-card" aria-label="قائمة المحادثات">
-            <div class="sidebar-header">
-                <button class="sidebar-new-chat" id="newChatBtn" type="button">
-                    <i class="fa-solid fa-plus" aria-hidden="true"></i>
-                    <span>محادثة جديدة</span>
-                </button>
-                <div class="sidebar-caption">المحادثات</div>
-            </div>
-
-            <div class="sidebar-list" id="chatList"></div>
+    <div class="chat-app">
+        <!-- Sidebar -->
+        <aside class="glass-card sidebar">
+            <button class="btn new-chat" onclick="newChat()"><i class="fa-solid fa-plus"></i> محادثة جديدة</button>
+            <div class="history-title">السجل</div>
+            <div id="chatList" class="history-list"></div>
         </aside>
 
-        <main class="chat-main glass-card" aria-label="محتوى المحادثة">
-            <header class="chat-main-header">
-                <div class="chat-main-title">
-                    <div class="chat-main-title-row">
-                        <span class="chat-main-brand" aria-hidden="true"><i class="fa-solid fa-brain"></i></span>
-                        <span id="activeChatTitle">محادثة جديدة</span>
-                    </div>
-                </div>
-
-                <div class="chat-main-actions">
-                    <button class="ghost-btn" id="restartBtn" type="button">ابدأ من جديد</button>
-                    <button class="ghost-btn danger" id="endBtn" type="button">إنهاء الشات</button>
+        <!-- Main Chat -->
+        <main class="glass-card chat-main">
+            <header class="chat-header">
+                <div class="chat-title"><span class="logo-mark"><i class="fa-solid fa-brain"></i></span> <span id="chatTitle">محادثة جديدة</span></div>
+                <div class="actions">
+                    <button class="icon-btn danger" onclick="deleteChat()" title="مسح المحادثة"><i class="fa-solid fa-trash"></i> مسح</button>
+                    <button class="icon-btn" onclick="location.href='/'" title="رجوع للرئيسية"><i class="fa-solid fa-arrow-right"></i> رجوع</button>
                 </div>
             </header>
-
-            <section class="chat-main-body" id="messages" aria-live="polite"></section>
-
-            <footer class="chat-main-footer">
-                <textarea id="messageInput" rows="1" placeholder="اكتب سؤالك في النظم الخبيرة..."></textarea>
-                <button class="send-btn" id="sendBtn" type="button" aria-label="إرسال">
-                    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
-                </button>
-            </footer>
+            <div id="messages" class="chat-body"></div>
+            <div class="chat-footer">
+                <input type="text" id="userInput" placeholder="اكتب سؤالك...">
+                <button id="sendBtn" class="icon-btn send" onclick="send()"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
         </main>
     </div>
 
-    <script src="/static/js/chat_page.js"></script>
+    <script src="/static/js/chat.js"></script>
 </body>
 </html>
