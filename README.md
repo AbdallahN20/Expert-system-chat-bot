@@ -25,8 +25,7 @@ python app.py
 ## المتغيرات البيئية (اختياري)
 انسخ `.env.example` إلى `.env` وعدّل القيم حسب احتياجك.
 
-- `TELEGRAM_TOKEN`: لو هتشغل Webhook تيليجرام.
-- `MY_WEBSITE_URL`: رابط موقعك العام (لو محتاج إرسال صور في تيليجرام كرابط كامل).
+
 
 ## ملاحظة مهمة عن GitHub Pages
 GitHub Pages **بيشغّل ملفات Static فقط (HTML/CSS/JS)** ومش بيشغّل Flask/Python مباشرة.

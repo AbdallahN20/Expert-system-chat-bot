@@ -4,7 +4,6 @@
 * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
 body { font-family: 'Cairo', sans-serif; background: var(--b0); color: var(--t); overflow-x: hidden; }
 
-/* ── BG & Glass ── */
 .liquid-bg { position: fixed; inset: 0; z-index: -1; background: var(--b0); }
 .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .6; animation: float 10s infinite alternate; }
 .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--a2); animation-delay: 0s; }
@@ -13,7 +12,6 @@ body { font-family: 'Cairo', sans-serif; background: var(--b0); color: var(--t);
 @keyframes float { to { transform: translate(30px, 50px) scale(1.1); } }
 .glass-card, .glass-nav { background: var(--g); backdrop-filter: blur(15px); border: 1px solid var(--gb); box-shadow: 0 8px 32px rgba(0,0,0,.4); border-radius: 15px; }
 
-/* ── UI Elements ── */
 .btn { background: linear-gradient(45deg, var(--a2), var(--a1)); color: var(--t); border: none; padding: 12px 24px; font-size: 1.1rem; font-family: inherit; font-weight: bold; border-radius: 12px; cursor: pointer; transition: .3s; display: inline-flex; gap: 10px; align-items: center; justify-content: center; }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(34, 211, 238, .2); }
 .icon-btn { background: rgba(255,255,255,.1); border: 1px solid var(--gb); color: var(--t); padding: 8px 12px; border-radius: 10px; cursor: pointer; transition: .2s; display: inline-flex; gap: 5px; align-items: center; font-family: inherit; font-weight: bold; }
@@ -23,7 +21,6 @@ body { font-family: 'Cairo', sans-serif; background: var(--b0); color: var(--t);
 .icon-btn.danger:hover { background: rgba(251,113,133,.15); }
 .logo-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 12px; background: rgba(255,255,255,.08); border: 1px solid var(--gb); color: var(--a1); }
 
-/* ── Home Page ── */
 .glass-nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; margin: 20px auto; width: 90%; position: sticky; top: 20px; z-index: 1000; }
 .logo { font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; text-shadow: 0 0 12px var(--a2); }
 .nav-links { display: flex; gap: 20px; list-style: none; }
@@ -40,7 +37,6 @@ body { font-family: 'Cairo', sans-serif; background: var(--b0); color: var(--t);
 .icon { font-size: 2.5rem; color: var(--a1); margin-bottom: 15px; }
 .footer { padding: 20px; text-align: center; margin: 20px auto; width: 90%; }
 
-/* ── Chat Page (SPA Layout) ── */
 body.chat-page { overflow: hidden; }
 .chat-app { display: flex; height: 100vh; width: 100%; max-width: 1300px; margin: 0 auto; padding: 20px; gap: 20px; }
 .sidebar { width: 300px; padding: 15px; display: flex; flex-direction: column; gap: 15px; }

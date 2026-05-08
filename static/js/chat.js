@@ -28,12 +28,10 @@ const addMsg = (chat, role, text, image=null) => {
 const render = () => {
     if (!state.chats.length) return newChat();
     
-    // Render History List
     listEl.innerHTML = state.chats.sort((a,b) => b.ts - a.ts).map(c => 
         `<button class="history-item ${c.id === state.active ? 'active' : ''}" onclick="state.active='${c.id}'; save(); render()">${c.title}</button>`
     ).join('');
 
-    // Render Active Chat
     const chat = activeChat();
     titleEl.textContent = chat.title;
     msgsEl.innerHTML = !chat.msgs.length ? 
